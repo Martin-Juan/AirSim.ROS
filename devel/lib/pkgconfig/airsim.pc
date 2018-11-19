@@ -1,0 +1,8 @@
+prefix=/home/juan/catkin_ws/src/airsim/devel
+
+Name: airsim
+Description: Description of airsim
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/juan/catkin_ws/src/airsim/devel/lib 
+Requires: 

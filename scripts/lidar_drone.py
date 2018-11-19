@@ -7,10 +7,10 @@ import numpy
 import rospy
 
 # ROS Image message
-from sensor_msgs.msg import Lidar
+from sensor_msgs.msg import LaserScan
 
 def lidar():
-    pub = rospy.Publisher("airsim/lidar", Image, queue_size=1)
+    pub = rospy.Publisher("airsim/lidar", LaserScan, queue_size=1)
     rospy.init_node('lidar', anonymous=True)
     rate = rospy.Rate(10) # 10hz
 
@@ -26,18 +26,20 @@ def lidar():
             img_rgba_string = response.image_data_uint8
 
         # Populate image message
-        msg=Image() 
+        msg=lidar() 
         msg.header.stamp = rospy.Time.now()
-        msg.header.frame_id = "frameId"
-        msg.encoding = "rgba8"
-        msg.height = 360  # resolution should match values in settings.json 
-        msg.width = 640
-        msg.data = img_rgba_string
-        msg.is_bigendian = 0
-        msg.step = msg.width * 4
+        msg.header.frame_id = "laser_frame"
+	msg.angle_min = -1
+	msg.angle_max = 1
+	msg.scan_increment = 3.14 /num_readings
+	msg.range_min = 0.0
+	msg.range_max = 100.0
+	msg.set_ranges_size(num_readings);
+      	msg.set_intensities_size(num_readings)
+	for(unsigned int i = 0; i < num_readings; ++i){S
+		msg.ranges[i] = ranges[i]
+		msg.intensities[i] = intensities[i]     }
 
-        # log time and size of published image
-        rospy.loginfo(len(response.image_data_uint8))
         # publish image message
         pub.publish(msg)
         # sleep until next cycle
@@ -46,6 +48,6 @@ def lidar():
 
 if __name__ == '__main__':
     try:
-        airpub()
+        lidar()
     except rospy.ROSInterruptException:
         pass
