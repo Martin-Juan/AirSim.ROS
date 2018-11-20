@@ -34,9 +34,9 @@ def airpub():
 
         # populate PoseStamped ros message
         simPose = PoseStamped()
-        simPose.pose.position.x = pos.x_val
-        simPose.pose.position.y = pos.y_val
-        simPose.pose.position.z = pos.z_val
+        simPose.pose.position.x = - pos.x_val
+        simPose.pose.position.y = - pos.y_val
+        simPose.pose.position.z = - pos.z_val
         simPose.pose.orientation.w = orientation.w_val
         simPose.pose.orientation.x = orientation.x_val
         simPose.pose.orientation.y = orientation.y_val
