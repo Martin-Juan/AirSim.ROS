@@ -34,7 +34,7 @@ def lidar():
     	msg.scan_increment = 3.14 /num_readings
     	msg.range_min = 0.0
     	msg.range_max = 100.0
-    	msg.set_ranges_size(num_readings_
+    	msg.set_ranges_size(num_readings_)
         msg.set_intensities_size(num_readings)
     	for(unsigned int i = 0; i < num_readings; ++i){
     		msg.ranges[i] = ranges[i]
