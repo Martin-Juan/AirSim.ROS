@@ -14,16 +14,18 @@ def callback(msg):
     y=msg.pose.position.y
     z=msg.pose.position.z
     rospy.loginfo(x,y,z)
-def GotoGoal():
     client = airsim.MultirotorClient()
     state = client.getMultirotorState()
-    pub = rospy.Subscriber("/move_base_simple/goal", Float64, callback)
     client.confirmConnection()
     client.enableApiControl(True)
     client.armDisarm(True)
     client.moveToPositionAsync(x, y, z, 10).join()
     client.hoverAsync().join()
     rospy.spin()
+def GotoGoal():
+   
+    pub = rospy.Subscriber("/move_base_simple/goal", Float64, callback)
+   
 if __name__ == '__main__':
     try:
         GotoGoal()
