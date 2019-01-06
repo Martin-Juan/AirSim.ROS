@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Example ROS node for publishing AirSim images.
+
 
 # AirSim Python API
 import setup_path 
@@ -21,9 +21,9 @@ def airpub():
     client.confirmConnection()
 
     while not rospy.is_shutdown():
-         # get camera images from the car
+        
         responses = client.simGetImages([
-            airsim.ImageRequest("1", airsim.ImageType.Scene, False, False)])  #scene vision image in uncompressed RGBA array
+            airsim.ImageRequest("1", airsim.ImageType.Scene, False, False)])
 
         for response in responses:
             img_rgba_string = response.image_data_uint8
@@ -33,7 +33,7 @@ def airpub():
         msg.header.stamp = rospy.Time.now()
         msg.header.frame_id = "frameId"
         msg.encoding = "rgba8"
-        msg.height = 360  # resolution should match values in settings.json 
+        msg.height = 360  
         msg.width = 640
         msg.data = img_rgba_string
         msg.is_bigendian = 0
